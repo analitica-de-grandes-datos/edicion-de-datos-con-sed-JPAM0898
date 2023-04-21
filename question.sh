@@ -42,8 +42,13 @@
 #  >>> Escriba su codigo a partir de este punto <<<
 #
 
+#  * Convierta el formato de las fechas de DD/MM/YY a YYYY-MM-DD.
 sed 's/\([0-9]\)\/\([0-9]\)\/\([0-9]\)/20\3-\2-\1/g' data.csv | 
-sed 's/;;/;\N;/g' | 
-sed 's/;;/;\N;/g' | 
+#  * Transforme el archivo para que todos los campos nulos aparezcan como `\N`.
+sed 's/,,/,\\N,/g' |
+#  * Reemplace los `;` por `,`.
 sed 's/;/,/g' |
-sed 's/,/./g'
+#  * Use el `.` para indicar decimales en la última columna
+sed 's/\([0-9]\),\([0-9]\)/\1.\2/g'
+
+
