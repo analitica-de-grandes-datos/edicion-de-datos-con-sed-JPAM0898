@@ -40,15 +40,4 @@
 #  2014-09-01,A,3,100.4
 #
 #  >>> Escriba su codigo a partir de este punto <<<
-#
-
-#  * Convierta el formato de las fechas de DD/MM/YY a YYYY-MM-DD.
-sed 's/\([0-9]\)\/\([0-9]\)\/\([0-9]\)/20\3-\2-\1/g' data.csv | 
-#  * Transforme el archivo para que todos los campos nulos aparezcan como `\N`.
-sed 's/,,/,\\N,/g' |
-#  * Reemplace los `;` por `,`.
-sed 's/;/,/g' |
-#  * Use el `.` para indicar decimales en la última columna
-sed 's/\([0-9]\),\([0-9]\)/\1.\2/g'
-
-
+sed 's/\([0-9][0-9]\)\/\([0-9][0-9]\)\/\([0-9][0-9]\)/20\3-\2-\1/g; s/;;/;\N;/g; s/;n/;\\N/g; s/;N/;\\N/g;  s/;/,/g; s/,/./4; s/\([0-9]\)\/\([0-9]\)\/\([0-9][0-9][0-9][0-9]\)/\3-0\2-0\1/g; s/,$/,\\N/g; s/[a-z]/\U&/g;' data.csv > output.csv
